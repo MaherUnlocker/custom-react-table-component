@@ -1,0 +1,95 @@
+{
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "@maherunlocker/custom-react-table-component",
+  "author": "M@HeR",
+  "module": "dist/react-table-component.esm.js",
+  "homepage": "https://github.com/MaherUnlocker/custom-react-table-component",
+  "size-limit": [
+    {
+      "path": "dist/react-table-component.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/react-table-component.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@size-limit/preset-small-lib": "^7.0.4",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/addons": "^6.4.9",
+    "@storybook/react": "^6.4.9",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "@types/react-table": "^7.7.9",
+    "autoprefixer": "^10.4.0",
+    "babel-loader": "^8.2.3",
+    "cssnano": "^5.0.14",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^7.0.4",
+    "postcss": "^8.4.5",
+    "prettier": "^2.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-is": "^17.0.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "size-limit": "^7.0.4",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "@ggascoigne/namor": "^2.0.2",
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "@types/react-bootstrap": "0.32.28",
+    "@welldone-software/why-did-you-render": "^6.2.0",
+    "axios": "0.24.0",
+    "bootstrap": "5.1.3",
+    "classnames": "^2.3.1",
+    "match-sorter": "^6.3.0",
+    "pretty-checkbox": "^3.0.3",
+    "react-bootstrap": "2.0.3",
+    "react-json-view": "^1.21.3",
+    "react-table": "^7.7.0"
+  }
+}
