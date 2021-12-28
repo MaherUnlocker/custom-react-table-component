@@ -1,11 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { FilterValue, IdType, Row } from 'react-table';
+import './index.css';
+
+import axios from 'axios';
 import React, { useEffect, useMemo, useState } from 'react';
+import { FilterValue, IdType, Row, useExpanded } from 'react-table';
 
 import LoadingDataAnimation from '../components/LoadingDataAnimation';
 import { Table } from './Table';
-import axios from 'axios';
 
 function filterGreaterThan(
   rows: Array<Row<any>>,
@@ -30,20 +32,21 @@ type DynamictableProps = {
   canSort?: boolean;
   canResize?: boolean;
   canSelect?: boolean;
+  canExpand?: boolean;
   actionColumn?: React.ReactNode;
 };
 
-export default function DynamicTable({
+export default function Dynamictable({
   url,
   actionColumn,
   canGroupBy,
   canSort,
-  canSelect,
   canResize,
+  canSelect,
+  canExpand,
 }: DynamictableProps) {
   const [apiResult, setApiResult] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // @ts-ignore
   const [error, setError] = useState<null | any>(null);
 
   async function fetchData(url: string) {
@@ -60,17 +63,18 @@ export default function DynamicTable({
       });
   }
 
-  const apiResultColumns = useMemo(
+  let apiResultColumns = useMemo(
     () =>
       apiResult[0]
         ? Object.keys(apiResult[0])
-            .filter((key) => key !== 'rating')
+            .filter((key) => key !== 'rating' && key !== 'subRows')
             .map((key) => {
               if (key === 'image') {
                 return {
                   Header: key,
                   accessor: key,
                   disableFilters: true,
+                  // eslint-disable-next-line
                   Cell: (value: any) => {
                     return (
                       <img
@@ -87,14 +91,55 @@ export default function DynamicTable({
                 Header: key,
                 accessor: key,
                 aggregate: 'count',
-                Aggregated: ({ cell: { value } }: any) => `${value} Names`,
+                Aggregated: ({ cell: { value } }: any) => `${value}`,
               };
             })
         : [],
     [apiResult]
   );
 
-  const columns: any = useMemo(() => apiResultColumns, [apiResultColumns]);
+  const columns: any = useMemo(() => {
+    if (canExpand) {
+      return [
+        {
+          // Build our expander column
+          id: 'expander', // Make sure it has an ID
+          Header: '',
+          Cell: ({ row }: any) =>
+            // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
+            // to build the toggle for expanding a row
+            row.canExpand ? (
+              <span
+                {...row.getToggleRowExpandedProps({
+                  style: {
+                    // We can even use the row.depth property
+                    // and paddingLeft to indicate the depth
+                    // of the row
+                    paddingLeft: `${row.depth * 2}rem`,
+                  },
+                })}
+              >
+                {row.isExpanded ? (
+                  <i className="arrow down"></i>
+                ) : (
+                  <i className="arrow right"></i>
+                )}
+                {/* {row.isExpanded
+                  ? ExpandIconDown === undefined
+                    ? '👇'
+                    : ExpandIconDown
+                  : ExpandedIcon === undefined
+                  ? '👉'
+                  : ExpandedIcon} */}
+              </span>
+            ) : null,
+        },
+        ...apiResultColumns,
+      ];
+    }
+
+    return apiResultColumns;
+  }, [apiResultColumns]);
 
   useEffect(() => {
     fetchData(url);
@@ -103,15 +148,16 @@ export default function DynamicTable({
   if (loading) return <LoadingDataAnimation />;
 
   return (
-    <Table
-      name={'myTable'}
-      columns={columns}
-      data={apiResult}
-      canGroupBy={canGroupBy}
-      canSort={canSort}
-      canResize={canResize}
-      canSelect={canSelect}
-      actionColumn={actionColumn}
-    />
+    <React.Fragment>
+      <Table
+        name={'myTable'}
+        columns={columns}
+        data={apiResult}
+        canGroupBy={canGroupBy}
+        canSort={canSort}
+        canResize={canResize}
+        actionColumn={actionColumn}
+      />
+    </React.Fragment>
   );
 }

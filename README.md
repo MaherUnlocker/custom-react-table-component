@@ -1,6 +1,6 @@
 # Custom react-table-component / Storybook User Guide
 
-react-table-component is based from React-Table v7: collection of hooks for **building powerful tables and datagrid experiences**. These hooks are lightweight, composable, and ultra-extensible, but **do not render any markup or styles for you**. This effectively means that React Table is a "headless" UI library
+react-table-component is based on `React-Table v7`: collection of hooks for **building powerful tables and datagrid experiences**. These hooks are lightweight, composable, and ultra-extensible, but **do not render any markup or styles for you**. This effectively means that React Table is a "headless" UI library
 
 <a target="_blank" rel="noopener noreferrer" href="https://user-images.githubusercontent.com/30791819/147334536-5de8ed47-4719-4563-b537-f468cfef3fdf.PNG"><img src="https://user-images.githubusercontent.com/30791819/147334536-5de8ed47-4719-4563-b537-f468cfef3fdf.PNG" alt="sample" style="max-width: 100%;"></a>
 
@@ -8,7 +8,7 @@ react-table-component is based from React-Table v7: collection of hooks for **bu
 
 ## greets to 
 
-> https://github.com/atefBB/atefBB
+> https://github.com/atefBB
 
 > If you’re new to TypeScript and React, checkout [this handy cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet/)
 
@@ -19,16 +19,20 @@ You can install React Table with [NPM](https://npmjs.com),
 [unpkg.com](https://unpkg.com).
 
 ```sh
-npm install @maherunlocker/react-table-component --save
+npm install @maherunlocker/custom-react-table-component
+ --save
 ```
 
 or
 
 ```sh
-yarn add @maherunlocker/react-table-component
+yarn add @maherunlocker/custom-react-table-component
+
 ```
 
-@maherunlocker/react-table-component is compatible with React v16.8+ and works with ReactDOM and React Native.
+@maherunlocker/custom-custom-react-table-component
+
+ is compatible with React v16.8+ and works with ReactDOM and React Native.
 
 ### How to use 
 ### Storybook
@@ -55,9 +59,44 @@ import `Dynamictable` from @maherunlocker/react-table-component
     canSort
     canResize
     canSelect
+    canExpand
   />
 
-<a target="_blank" rel="noopener noreferrer" href="https://user-images.githubusercontent.com/30791819/147333869-ea52fd80-1dba-4554-9163-fe42f8a07394.png"><img src="https://user-images.githubusercontent.com/30791819/147333869-ea52fd80-1dba-4554-9163-fe42f8a07394.png" alt="react-table" style="max-width: 100%;"></a>
+### Example for data with expend
+{
+      "id": 1,
+      "name": "Maher",
+      "lastName": "unlocker",
+      "age": 15,
+      "subRows": [
+        {
+          "id": 2,
+          "name": "Maher",
+          "lastName": "unlocker",
+          "age": 15,
+          "subRows": []
+        },
+        {
+          "id": 3,
+          "name": "Maher",
+          "lastName": "unlocker",
+          "age": 15,
+          "subRows": []
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Maher",
+      "lastName": "unlocker",
+      "age": 15,
+      "subRows": []
+    }
+
+
+
+<a target="_blank" rel="noopener noreferrer" href="https://user-images.githubusercontent.com/30791819/147579324-8e543c3d-92cc-4cd7-9a3d-2b9602087ea5.png"><img src="https://user-images.githubusercontent.com/30791819/147579324-8e543c3d-92cc-4cd7-9a3d-2b9602087ea5.png" alt="react-table" style="max-width: 100%;"></a>
+
 
 ### TypeScript
 
