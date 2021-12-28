@@ -91,7 +91,7 @@ export default function Dynamictable({
                 Header: key,
                 accessor: key,
                 aggregate: 'count',
-                Aggregated: ({ cell: { value } }: any) => `${value}`,
+                Aggregated: ({ cell: { value } }: any) => `${value} `,
               };
             })
         : [],
@@ -119,18 +119,8 @@ export default function Dynamictable({
                   },
                 })}
               >
-                {row.isExpanded ? (
-                  <i className="arrow down"></i>
-                ) : (
-                  <i className="arrow right"></i>
-                )}
-                {/* {row.isExpanded
-                  ? ExpandIconDown === undefined
-                    ? '👇'
-                    : ExpandIconDown
-                  : ExpandedIcon === undefined
-                  ? '👉'
-                  : ExpandedIcon} */}
+                {/* {row.isExpanded ? <i className='arrow down'></i> : <i className='arrow right'></i>} */}
+                {row.isExpanded ? '👇' : '👉'}
               </span>
             ) : null,
         },
@@ -140,7 +130,7 @@ export default function Dynamictable({
 
     return apiResultColumns;
   }, [apiResultColumns]);
-
+  console.log(columns);
   useEffect(() => {
     fetchData(url);
   }, [url]);
