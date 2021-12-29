@@ -1,6 +1,6 @@
 # Custom react-table-component / Storybook User Guide
 
-react-table-component is based on `React-Table v7`: collection of hooks for **building powerful tables and datagrid experiences**. These hooks are lightweight, composable, and ultra-extensible, but **do not render any markup or styles for you**. This effectively means that React Table is a "headless" UI library
+`react-table-component` is based on <code>React-Table v7</code>: collection of hooks for **building powerful tables and datagrid experiences**. These hooks are lightweight, composable, and ultra-extensible, but **do not render any markup or styles for you**. This effectively means that React Table is a "headless" UI library.
 
 <a target="_blank" rel="noopener noreferrer" href="https://user-images.githubusercontent.com/30791819/147334536-5de8ed47-4719-4563-b537-f468cfef3fdf.PNG"><img src="https://user-images.githubusercontent.com/30791819/147334536-5de8ed47-4719-4563-b537-f468cfef3fdf.PNG" alt="sample" style="max-width: 100%;"></a>
 
@@ -30,11 +30,8 @@ yarn add @maherunlocker/custom-react-table-component
 
 ```
 
-@maherunlocker/custom-custom-react-table-component
+This package is compatible with React v16.8+ and works with ReactDOM.
 
- is compatible with React v16.8+ and works with ReactDOM and React Native.
-
-### How to use 
 ### Storybook
 
 Run inside another terminal:
@@ -47,11 +44,12 @@ This loads the stories from `./stories`.
 
 > NOTE: Stories should reference the components as if using the library, similar to the example playground. This means importing from the root project directory. This has been aliased in the tsconfig and the storybook webpack config as a helper.
 
-### Example
+### How to use
 import `Dynamictable` from @maherunlocker/react-table-component
 
+```jsx
 <DynamicTable
-    //put your backed api url
+    //put your backend api url
     url={apiUrl}
     //optionnal props
     actionColumn={<div>put your component</div>}
@@ -60,43 +58,44 @@ import `Dynamictable` from @maherunlocker/react-table-component
     canResize
     canSelect
     canExpand
+    ShowGlobalFilter
+    ShowFilterbyColomn
+    ShowHideColomnIcon
   />
+```
 
 ### Example for data with expend
+```js
 {
-      "id": 1,
+  "id": 1,
+  "name": "Maher",
+  "lastName": "unlocker",
+  "age": 15,
+  "subRows": [
+    {
+      "id": 2,
       "name": "Maher",
       "lastName": "unlocker",
       "age": 15,
-      "subRows": [
-        {
-          "id": 2,
-          "name": "Maher",
-          "lastName": "unlocker",
-          "age": 15,
-          "subRows": []
-        },
-        {
-          "id": 3,
-          "name": "Maher",
-          "lastName": "unlocker",
-          "age": 15,
-          "subRows": []
-        }
-      ]
+      "subRows": []
     },
     {
-      "id": 4,
+      "id": 3,
       "name": "Maher",
       "lastName": "unlocker",
       "age": 15,
       "subRows": []
     }
-
-
-
-<a target="_blank" rel="noopener noreferrer" href="https://user-images.githubusercontent.com/30791819/147579324-8e543c3d-92cc-4cd7-9a3d-2b9602087ea5.png"><img src="https://user-images.githubusercontent.com/30791819/147579324-8e543c3d-92cc-4cd7-9a3d-2b9602087ea5.png" alt="react-table" style="max-width: 100%;"></a>
-
+  ]
+},
+{
+  "id": 4,
+  "name": "Maher",
+  "lastName": "unlocker",
+  "age": 15,
+  "subRows": []
+}
+```
 
 ### TypeScript
 

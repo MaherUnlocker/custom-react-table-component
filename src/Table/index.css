@@ -1,14 +1,14 @@
-.arrow {
-  border: solid black;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
+.arrowRight {
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+  width: 8px;
+  height: 8px;
+  transform: rotate(320deg);
 }
-.right {
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-}
-.down {
+.arrowDown {
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+  width: 8px;
+  height: 8px;
   transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
 }
