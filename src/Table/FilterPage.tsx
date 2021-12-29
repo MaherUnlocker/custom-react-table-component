@@ -13,6 +13,7 @@ const useStyles = makeStyles(
   createStyles({
     columnsPopOver: {
       padding: 24,
+      display: 'flex',
     },
     filtersResetButton: {
       position: 'absolute',
@@ -35,7 +36,7 @@ const useStyles = makeStyles(
     },
     cell: {
       width: '100%',
-      display: 'inline-flex',
+      display: 'flex',
       flexDirection: 'column',
     },
     hidden: {
@@ -81,15 +82,17 @@ export function FilterPage<T extends Record<string, unknown>>({
           horizontal: 'right',
         }}
       >
-        <div className={classes.columnsPopOver}>
-          <form onSubmit={onSubmit}>
+        <div className={(classes.columnsPopOver, classes.grid, classes.cell)}>
+          <form onSubmit={onSubmit} className={classes.cell}>
             <button onClick={resetFilters}>Reset</button>
             <div>
               {allColumns
 
                 .filter((it) => it.canFilter)
                 .map((column) => (
-                  <div key={column.id}>{column.render('Filter')}</div>
+                  <div key={column.id} className="d-flex mt-2">
+                    {column.render('Filter')}
+                  </div>
                 ))}
             </div>
           </form>

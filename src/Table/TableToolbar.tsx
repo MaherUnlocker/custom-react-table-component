@@ -163,13 +163,16 @@ type TableToolbarProps<T extends Record<string, unknown>> = {
   onAdd?: TableMouseEventHandler;
   onDelete?: TableMouseEventHandler;
   onEdit?: TableMouseEventHandler;
+  showGlobalFilter?: boolean;
+  showFilterbyColomn?: boolean;
+  showHideColomnIcon?: boolean;
 };
 
 export function TableToolbar<T extends Record<string, unknown>>({
   instance,
-  onAdd,
-  onDelete,
-  onEdit,
+  showGlobalFilter,
+  showFilterbyColomn,
+  showHideColomnIcon,
 }: PropsWithChildren<TableToolbarProps<T>>): ReactElement | null {
   const { columns } = instance;
   const classes = useStyles();
@@ -203,13 +206,22 @@ export function TableToolbar<T extends Record<string, unknown>>({
   }, []);
 
   // toolbar with add, edit, delete, filter/search column select.
+
   return (
-    <Toolbar className={classes.toolbar}>
-      <GlobalFilter
-        preGlobalFilteredRows={instance.preGlobalFilteredRows}
-        setGlobalFilter={instance.setGlobalFilter}
-        style={{ width: '80%' }}
-      />
+    <Toolbar
+      className={
+        !showGlobalFilter && !showFilterbyColomn && !showHideColomnIcon
+          ? 'd-none'
+          : classes.toolbar
+      }
+    >
+      {showGlobalFilter ? (
+        <GlobalFilter
+          preGlobalFilteredRows={instance.preGlobalFilteredRows}
+          setGlobalFilter={instance.setGlobalFilter}
+          style={{ width: '80%' }}
+        />
+      ) : null}
 
       <div className={classes.rightButtons}>
         <ColumnHidePage<T>
@@ -218,26 +230,31 @@ export function TableToolbar<T extends Record<string, unknown>>({
           show={columnsOpen}
           anchorEl={anchorEl}
         />
+
         <FilterPage<T>
           instance={instance}
           onClose={handleClose}
           show={filterOpen}
           anchorEl={anchorEl}
         />
-        {hideableColumns.length > 1 && (
+        {showHideColomnIcon
+          ? hideableColumns.length > 1 && (
+              <SmallIconActionButton
+                icon={<ViewColumnsIcon />}
+                onClick={handleColumnsClick}
+                label="Show / hide columns"
+                variant="right"
+              />
+            )
+          : null}
+        {showFilterbyColomn ? (
           <SmallIconActionButton
-            icon={<ViewColumnsIcon />}
-            onClick={handleColumnsClick}
-            label="Show / hide columns"
+            icon={<FilterListIcon />}
+            onClick={handleFilterClick}
+            label="Filter by columns"
             variant="right"
           />
-        )}
-        <SmallIconActionButton
-          icon={<FilterListIcon />}
-          onClick={handleFilterClick}
-          label="Filter by columns"
-          variant="right"
-        />
+        ) : null}
       </div>
     </Toolbar>
   );

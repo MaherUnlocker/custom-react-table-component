@@ -67,6 +67,9 @@ export interface TableProperties<T extends Record<string, unknown>>
   canSort?: boolean;
   canResize?: boolean;
   canSelect?: boolean;
+  showGlobalFilter?: boolean;
+  showFilterbyColomn?: boolean;
+  showHideColomnIcon?: boolean;
   actionColumn?: React.ReactNode;
 }
 
@@ -192,15 +195,15 @@ const filterTypes: any = {
 export function Table<T extends Record<string, unknown>>({
   name,
   columns,
-  onAdd,
-  onDelete,
-  onEdit,
   onClick,
   canGroupBy,
   canSort,
-  canResize,
   canSelect,
+  canResize,
   actionColumn,
+  showGlobalFilter,
+  showFilterbyColomn,
+  showHideColomnIcon,
   ...props
 }: PropsWithChildren<TableProperties<T>>): ReactElement {
   const classes = useStyles();
@@ -231,23 +234,29 @@ export function Table<T extends Record<string, unknown>>({
                 aria-labelledby="dropdownMenuButton1"
               >
                 <div className="d-flex flex-column">
-                  {columns.map((column: any) => {
-                    return (
-                      <div
-                        key={column.id}
-                        className=" pretty p-default p-curve p-fill my-2 d-flex align-items-center"
-                      >
-                        <input
-                          type="checkbox"
-                          className="mx-2"
-                          {...column.getToggleHiddenProps()}
-                        />
-                        <div className="state p-primary ">
-                          <label>{column.id}</label>
+                  {columns
+                    .filter(
+                      (column) =>
+                        !(column.id === '_selector') &&
+                        !(column.id === 'expander')
+                    )
+                    .map((column: any) => {
+                      return (
+                        <div
+                          key={column.id}
+                          className=" pretty p-default p-curve p-fill my-2 d-flex align-items-center"
+                        >
+                          <input
+                            type="checkbox"
+                            className="mx-2"
+                            {...column.getToggleHiddenProps()}
+                          />
+                          <div className="state p-primary ">
+                            <label>{column.id}</label>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                   <br />
                 </div>
               </ul>
@@ -302,7 +311,7 @@ export function Table<T extends Record<string, unknown>>({
     prepareRow,
     state,
   } = instance;
-  const debouncedState = useDebounce(state, 500);
+  const debouncedState = useDebounce(state, 200);
 
   useEffect(() => {
     const { sortBy, filters, pageSize, columnResizing, hiddenColumns } =
@@ -328,7 +337,10 @@ export function Table<T extends Record<string, unknown>>({
 
   return (
     <React.Fragment>
-      <TableToolbar instance={instance} {...{ onAdd, onDelete, onEdit }} />
+      <TableToolbar
+        instance={instance}
+        {...{ showGlobalFilter, showFilterbyColomn, showHideColomnIcon }}
+      />
       <FilterChipBar instance={instance} />
       <TableTable {...tableProps}>
         <TableHead>

@@ -4,7 +4,7 @@ import './index.css';
 
 import axios from 'axios';
 import React, { useEffect, useMemo, useState } from 'react';
-import { FilterValue, IdType, Row, useExpanded } from 'react-table';
+import { FilterValue, IdType, Row } from 'react-table';
 
 import LoadingDataAnimation from '../components/LoadingDataAnimation';
 import { Table } from './Table';
@@ -30,8 +30,11 @@ type DynamictableProps = {
   url: string;
   canGroupBy?: boolean;
   canSort?: boolean;
-  canResize?: boolean;
   canSelect?: boolean;
+  canResize?: boolean;
+  showGlobalFilter?: boolean;
+  showFilterbyColomn?: boolean;
+  showHideColomnIcon?: boolean;
   canExpand?: boolean;
   actionColumn?: React.ReactNode;
 };
@@ -42,8 +45,11 @@ export default function Dynamictable({
   canGroupBy,
   canSort,
   canResize,
-  canSelect,
   canExpand,
+  canSelect,
+  showGlobalFilter,
+  showFilterbyColomn,
+  showHideColomnIcon,
 }: DynamictableProps) {
   const [apiResult, setApiResult] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -119,8 +125,12 @@ export default function Dynamictable({
                   },
                 })}
               >
-                {/* {row.isExpanded ? <i className='arrow down'></i> : <i className='arrow right'></i>} */}
-                {row.isExpanded ? '👇' : '👉'}
+                {row.isExpanded ? (
+                  <div className="arrowRight"></div>
+                ) : (
+                  <div className="arrowDown"></div>
+                )}
+                {/* {row.isExpanded ? '👇' : '👉'} */}
               </span>
             ) : null,
         },
@@ -130,7 +140,6 @@ export default function Dynamictable({
 
     return apiResultColumns;
   }, [apiResultColumns]);
-  console.log(columns);
   useEffect(() => {
     fetchData(url);
   }, [url]);
@@ -145,8 +154,12 @@ export default function Dynamictable({
         data={apiResult}
         canGroupBy={canGroupBy}
         canSort={canSort}
+        canSelect={canSelect}
         canResize={canResize}
         actionColumn={actionColumn}
+        showGlobalFilter={showGlobalFilter}
+        showFilterbyColomn={showFilterbyColomn}
+        showHideColomnIcon={showHideColomnIcon}
       />
     </React.Fragment>
   );
