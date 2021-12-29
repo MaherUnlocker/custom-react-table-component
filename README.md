@@ -64,7 +64,7 @@ import `Dynamictable` from @maherunlocker/react-table-component
   />
 ```
 
-### Example for data with expend
+### Example for data with expand
 ```js
 {
   "id": 1,
