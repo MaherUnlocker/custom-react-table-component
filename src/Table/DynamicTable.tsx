@@ -34,7 +34,7 @@ type DynamictableProps = {
   canResize?: boolean;
   showGlobalFilter?: boolean;
   showFilterbyColomn?: boolean;
-  showHideColomnIcon?: boolean;
+  showColomnIcon?: boolean;
   canExpand?: boolean;
   actionColumn?: React.ReactNode;
 };
@@ -49,7 +49,7 @@ export default function Dynamictable({
   canSelect,
   showGlobalFilter,
   showFilterbyColomn,
-  showHideColomnIcon,
+  showColomnIcon,
 }: DynamictableProps) {
   const [apiResult, setApiResult] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -159,7 +159,7 @@ export default function Dynamictable({
         actionColumn={actionColumn}
         showGlobalFilter={showGlobalFilter}
         showFilterbyColomn={showFilterbyColomn}
-        showHideColomnIcon={showHideColomnIcon}
+        showColomnIcon={showColomnIcon}
       />
     </React.Fragment>
   );

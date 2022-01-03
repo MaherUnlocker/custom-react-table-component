@@ -165,14 +165,14 @@ type TableToolbarProps<T extends Record<string, unknown>> = {
   onEdit?: TableMouseEventHandler;
   showGlobalFilter?: boolean;
   showFilterbyColomn?: boolean;
-  showHideColomnIcon?: boolean;
+  showColomnIcon?: boolean;
 };
 
 export function TableToolbar<T extends Record<string, unknown>>({
   instance,
   showGlobalFilter,
   showFilterbyColomn,
-  showHideColomnIcon,
+  showColomnIcon,
 }: PropsWithChildren<TableToolbarProps<T>>): ReactElement | null {
   const { columns } = instance;
   const classes = useStyles();
@@ -210,7 +210,7 @@ export function TableToolbar<T extends Record<string, unknown>>({
   return (
     <Toolbar
       className={
-        !showGlobalFilter && !showFilterbyColomn && !showHideColomnIcon
+        !showGlobalFilter && !showFilterbyColomn && !showColomnIcon
           ? 'd-none'
           : classes.toolbar
       }
@@ -237,7 +237,7 @@ export function TableToolbar<T extends Record<string, unknown>>({
           show={filterOpen}
           anchorEl={anchorEl}
         />
-        {showHideColomnIcon
+        {showColomnIcon
           ? hideableColumns.length > 1 && (
               <SmallIconActionButton
                 icon={<ViewColumnsIcon />}

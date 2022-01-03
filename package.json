@@ -1,5 +1,5 @@
 {
-  "version": "2.0.0-development",
+  "version": "1.0.0-development",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -36,7 +36,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "@maherunlocker/custom-react-table-component",
+  "name": "@maherunlocker/custom-react-table",
   "author": "M@HeR",
   "module": "dist/react-table-component.esm.js",
   "homepage": "https://github.com/MaherUnlocker/custom-react-table-component",
